@@ -1,0 +1,365 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
+<title>RevisAí · Conteúdo em Dia, Dúvida Zero</title>
+<style>
+:root{--bg:#f3f5fc;--card:#fff;--tx:#1b2240;--mut:#59618a;--pri:#4f46e5;--on:#fff;--ok:#15803d;--bad:#b91c1c;--bd:#d5daee;box-sizing:border-box;padding-top:env(safe-area-inset-top,0px);padding-bottom:env(safe-area-inset-bottom,0px)}
+@media(prefers-color-scheme:dark){:root:not([data-theme="light"]){--bg:#0e1124;--card:#1a1f3d;--tx:#eef0ff;--mut:#a9b0d6;--pri:#818cf8;--on:#0e1124;--ok:#4ade80;--bad:#f87171;--bd:#343c70}}
+:root[data-theme="dark"]{--bg:#0e1124;--card:#1a1f3d;--tx:#eef0ff;--mut:#a9b0d6;--pri:#818cf8;--on:#0e1124;--ok:#4ade80;--bad:#f87171;--bd:#343c70}
+html{scroll-padding-top:env(safe-area-inset-top,0px)}
+*{box-sizing:border-box}
+body{margin:0;background:var(--bg);color:var(--tx);font:16px/1.5 system-ui,-apple-system,"Segoe UI",Roboto,sans-serif}
+main{max-width:720px;margin:0 auto;padding:16px}
+h1{font-size:1.5rem;margin:.2em 0}
+.card{background:var(--card);border:1px solid var(--bd);border-radius:16px;padding:18px;margin:12px 0}
+label{display:block;font-weight:600;margin:12px 0 4px}
+input,select{width:100%;padding:12px;font:inherit;color:var(--tx);background:var(--bg);border:2px solid var(--bd);border-radius:10px}
+button{font:inherit;cursor:pointer;border-radius:12px;border:2px solid var(--bd);background:var(--card);color:var(--tx);padding:12px 16px;min-height:48px}
+button.p{background:var(--pri);color:var(--on);border-color:var(--pri);font-weight:700}
+.w{width:100%;margin-top:8px}
+.o{display:block;width:100%;margin:8px 0;text-align:left}
+.o:disabled{opacity:1;color:var(--tx);cursor:default}
+.o.ok{border-color:var(--ok);border-width:3px}.o.ok::after{content:" ✔ correta"}
+.o.no{border-color:var(--bad);border-width:3px}.o.no::after{content:" ✖"}
+:focus-visible{outline:3px solid var(--pri);outline-offset:2px}
+.bar{height:10px;background:var(--bd);border-radius:9px;overflow:hidden;margin:8px 0}
+.bar i{display:block;height:100%;width:100%;background:var(--pri)}
+.top{display:flex;flex-wrap:wrap;gap:8px;justify-content:space-between;align-items:center;font-weight:600}
+.tag{background:var(--pri);color:var(--on);border-radius:99px;padding:2px 12px;font-size:.85rem}
+.fb{border-left:5px solid var(--pri);padding:8px 12px;margin-top:10px}
+.mut{color:var(--mut)}
+[hidden]{display:none!important}
+@media(prefers-reduced-motion:reduce){*{transition:none!important;animation:none!important}}
+#cover{position:relative;overflow:hidden;display:flex;align-items:center;justify-content:center;text-align:center;min-height:560px;min-height:min(680px,calc(100dvh - 48px));padding:24px 16px;border-radius:24px;color:#fff;background:radial-gradient(circle at 15% 10%,rgba(239,68,68,.45),transparent 40%),radial-gradient(circle at 90% 20%,rgba(250,204,21,.35),transparent 40%),radial-gradient(circle at 85% 95%,rgba(34,197,94,.4),transparent 45%),linear-gradient(160deg,#0b1b5e,#1e40af)}
+.bg span{position:absolute;font-size:2rem;opacity:.2;animation:fl 9s ease-in-out infinite}
+.bg span:nth-child(1){left:6%;top:10%}.bg span:nth-child(2){left:82%;top:8%;animation-delay:-2s}.bg span:nth-child(3){left:14%;top:72%;animation-delay:-4s}.bg span:nth-child(4){left:80%;top:70%;animation-delay:-1s}.bg span:nth-child(5){left:48%;top:3%;animation-delay:-6s}.bg span:nth-child(6){left:90%;top:38%;animation-delay:-3s}.bg span:nth-child(7){left:3%;top:40%;animation-delay:-5s}.bg span:nth-child(8){left:50%;top:92%;animation-delay:-7s}
+@keyframes fl{50%{transform:translateY(-18px) rotate(8deg)}}
+@keyframes pu{50%{transform:scale(1.07)}}
+.cv{position:relative;z-index:1;max-width:520px}
+.logo{width:96px;height:96px;filter:drop-shadow(0 6px 12px rgba(0,0,0,.35));animation:pu 3s ease-in-out infinite}
+.kick{margin:10px 0 0;font-size:.75rem;font-weight:700;letter-spacing:.2em;color:#c7d2fe}
+.ttl{margin:.1em 0;font-size:clamp(3rem,17vw,5.5rem);font-weight:900;line-height:1.05;letter-spacing:.03em;-webkit-text-stroke:6px #fff;paint-order:stroke fill;text-shadow:0 6px 0 rgba(0,0,0,.35)}
+.c1{color:#ef4444}.c2{color:#22c55e}.c3{color:#facc15}.c4{color:#3b82f6}
+.slogan{margin:6px 0 0;font-size:1.15rem;font-weight:800;color:#fff;text-shadow:0 2px 0 rgba(0,0,0,.4)}
+.sub{margin:10px 0 16px;font-size:1.05rem}
+.chips{list-style:none;padding:0;margin:0 0 8px;display:flex;flex-wrap:wrap;gap:8px;justify-content:center}
+.chips li{background:#dc2626;color:#fff;font-weight:700;border:1px solid rgba(255,255,255,.6);border-radius:99px;padding:4px 12px;font-size:.9rem}
+.chips li:nth-child(2){background:#15803d}.chips li:nth-child(3){background:#facc15;color:#1e1b4b}.chips li:nth-child(4){background:#2563eb}
+.stats{margin:14px 0 18px}
+#cover button{border-radius:99px;font-weight:800;margin:6px}
+#cv{font-size:1.25rem;padding:14px 40px;background:#22c55e;color:#052e16;border-color:#22c55e;box-shadow:0 5px 0 #166534}
+#cr{background:transparent;color:#fff;border-color:rgba(255,255,255,.6)}
+#cover :focus-visible{outline-color:#fff}
+</style>
+</head>
+<body>
+<main>
+<section id="cover">
+<div class="bg" aria-hidden="true"><span>π</span><span>∑</span><span>🧬</span><span>🌎</span><span>⚛️</span><span>√</span><span>📖</span><span>🧪</span></div>
+<div class="cv">
+<svg class="logo" viewBox="0 0 120 120" aria-hidden="true"><defs><linearGradient id="lg" x1="0" y1="0" x2="1" y2="1"><stop offset="0" stop-color="#fef08a"/><stop offset="1" stop-color="#facc15"/></linearGradient></defs><circle cx="60" cy="60" r="54" fill="url(#lg)"/><path d="M60 28 18 48l42 20 42-20z" fill="#dc2626"/><path d="M34 62v18c0 8 12 14 26 14s26-6 26-14V62L60 74z" fill="#2563eb"/><path d="M96 52v26" stroke="#16a34a" stroke-width="4" stroke-linecap="round"/><circle cx="96" cy="82" r="4" fill="#16a34a"/></svg>
+<p class="kick">SEDUC-PI · CURRÍCULO 2026</p>
+<h1 class="ttl" aria-label="RevisAí"><span class="c1">R</span><span class="c2">e</span><span class="c3">v</span><span class="c4">i</span><span class="c1">s</span><span class="c2">A</span><span class="c3">í</span></h1>
+<p class="slogan">Conteúdo em Dia, Dúvida Zero</p>
+<p class="sub">Revisão do 3º Trimestre<br>9º Ano ao 3º Ano do Ensino Médio</p>
+<ul class="chips"><li>🔬 Ciências</li><li>🧬 Biologia</li><li>📐 Matemática</li><li>🌍 Geografia</li><li>📚 Português</li></ul>
+<p class="stats"><b id="nq">160</b> questões · <b>4</b> níveis · <b>3</b> vidas</p>
+<button id="cv">▶ COMEÇAR</button><br><button id="cr">🏆 Ranking</button>
+</div>
+</section>
+<h1 id="hd">🎓 RevisAí</h1>
+<p class="mut" id="hd2">Revisão 3º Trimestre · Currículo 2026 · SEDUC-PI</p>
+
+<section id="home" class="card" hidden>
+<label for="nome">Nome do estudante</label><input id="nome" maxlength="30" autocomplete="name">
+<label for="turma">Turma / Série</label><select id="turma"></select>
+<label for="disc">Disciplina</label><select id="disc"></select>
+<label for="nv">Nível</label><select id="nv"></select>
+<button class="p w" id="go">▶ Jogar</button>
+<button class="w" id="rk">🏆 Ver ranking</button>
+<p class="mut">3 vidas · tempo limite por pergunta · combo de acertos até x5 · teclas 1 a 4 respondem.</p>
+</section>
+
+<section id="game" class="card" hidden>
+<div class="top"><span id="gl"></span><span id="gh" role="img" aria-label="Vidas restantes"></span><span id="gs"></span></div>
+<div class="bar" role="presentation"><i id="tb"></i></div>
+<div class="top"><span class="tag" id="gn"></span><span id="gt" class="mut"></span><span id="tm"></span></div>
+<h2 id="gq" style="font-size:1.15rem"></h2>
+<div id="ops"></div>
+<div id="fb" class="fb" role="status" aria-live="polite" hidden></div>
+<button class="p w" id="nx" hidden>Próxima ➜</button>
+</section>
+
+<section id="end" class="card" hidden>
+<h2 id="et"></h2><p id="es"></p><p id="ep" class="mut"></p>
+<button class="p w" id="again">↻ Reiniciar</button>
+<button class="w" id="er">🏆 Ranking da turma</button>
+<button class="w" id="eh">⌂ Início</button>
+</section>
+
+<section id="rank" class="card" hidden>
+<h2>🏆 Top 10 por turma</h2>
+<label for="rt">Turma</label><select id="rt"></select>
+<ol id="rl"></ol>
+<button class="w" id="rb">⌂ Voltar</button>
+</section>
+</main>
+
+<script>
+/* ===== Dados ===== */
+const NIV=[{n:'Fácil',t:45,p:10},{n:'Normal',t:35,p:20},{n:'Mediano',t:28,p:30},{n:'Difícil',t:20,p:50}];
+const DN=['Ciências','Biologia','Matemática','Geografia','Língua Portuguesa'];
+const TUR={'9':{n:'9º Ano (Fundamental)',d:[0,2,3,4]},'1':{n:'1ª Série (EM)',d:[1,2,3,4]},'2':{n:'2ª Série (EM)',d:[1,2,3,4]},'3':{n:'3ª Série (EM)',d:[1,2,3,4]}};
+/* Formato: [turma, disciplina(índice em DN), nível(0-3), enunciado, opções, índice correto, explicação] */
+const B=[
+['9',0,0,'Qual lei de Newton afirma que um corpo em repouso ou em movimento retilíneo uniforme tende a manter esse estado quando a força resultante é nula?',['1ª Lei (Inércia)','2ª Lei (Princípio Fundamental)','3ª Lei (Ação e Reação)','Lei da Gravitação Universal'],0,'É a 1ª Lei de Newton, ou Lei da Inércia. A 2ª relaciona força e aceleração (F = m·a) e a 3ª trata de pares ação-reação.'],
+['9',0,0,'Na genética mendeliana, como se chama a característica que só se manifesta em indivíduos homozigotos (aa)?',['Dominante','Recessiva','Letal','Heterozigota'],1,'Característica recessiva só aparece em homozigose (aa); no heterozigoto (Aa) o alelo dominante a mascara.'],
+['9',0,1,'Um corpo de 5 kg recebe uma força resultante de 20 N. Qual a aceleração adquirida?',['0,25 m/s²','4 m/s²','15 m/s²','100 m/s²'],1,'Pela 2ª Lei, a = F/m = 20/5 = 4 m/s². Multiplicar (100) é erro comum: a aceleração vem da divisão.'],
+['9',0,1,'No cruzamento Aa × Aa, qual a proporção GENOTÍPICA esperada?',['3 : 1','1 AA : 2 Aa : 1 aa','1 : 1','100% Aa'],1,'Os gametas A e a combinam-se em AA, Aa, Aa, aa → 1 : 2 : 1. A razão 3 : 1 é a FENOTÍPICA (3 dominantes : 1 recessivo).'],
+['9',0,2,'Uma onda de frequência 50 Hz tem comprimento de onda de 4 m. Qual sua velocidade de propagação?',['12,5 m/s','54 m/s','200 m/s','0,08 m/s'],2,'v = λ · f = 4 × 50 = 200 m/s. Dividir (12,5 ou 0,08) ou somar (54) são erros comuns.'],
+['9',0,2,'Na cadeia alimentar capim → gafanhoto → sapo → cobra, o sapo é classificado como:',['Produtor','Consumidor primário','Consumidor secundário','Decompositor'],2,'O sapo come o gafanhoto (consumidor primário, herbívoro); logo, é consumidor secundário. O produtor é o capim.'],
+['9',0,3,'Um carro de 1000 kg parte do repouso e atinge 20 m/s em 10 s, com aceleração constante. Qual a força resultante sobre ele?',['200 N','2000 N','10000 N','20000 N'],1,'a = Δv/Δt = 20/10 = 2 m/s²; F = m·a = 1000 × 2 = 2000 N. Usar a velocidade final como aceleração leva ao erro de 20000 N.'],
+['9',0,3,'Em ervilhas, semente amarela (V) é dominante sobre verde (v). Do cruzamento Vv × vv, qual a probabilidade de nascer descendente de semente verde?',['0%','25%','50%','75%'],2,'Vv × vv gera ½ Vv (amarela) e ½ vv (verde): 50%. Os 25% seriam o resultado de Vv × Vv (¼ vv).'],
+['9',2,0,'Em um triângulo retângulo, como se chama o maior lado, oposto ao ângulo reto?',['Cateto adjacente','Cateto oposto','Hipotenusa','Bissetriz'],2,'A hipotenusa é o lado oposto ao ângulo de 90° e sempre o maior lado. Os catetos são os dois lados que formam o ângulo reto.'],
+['9',2,1,'Em um triângulo retângulo, os catetos medem 6 cm e 8 cm. Qual a medida da hipotenusa?',['10 cm','12 cm','14 cm','48 cm'],0,'Pelo Teorema de Pitágoras, h² = 6² + 8² = 36 + 64 = 100, logo h = 10 cm. Somar os catetos (14) é erro comum: é preciso somar os quadrados.'],
+['9',2,2,'Quais são as raízes da equação x² − 5x + 6 = 0?',['2 e 3','−2 e −3','1 e 6','−1 e 6'],0,'Soma das raízes = 5 e produto = 6, logo 2 e 3. Por Bhaskara: Δ = 25 − 24 = 1 e x = (5 ± 1)/2. Raízes negativas (−2 e −3) resolveriam x² + 5x + 6 = 0.'],
+['9',2,3,'No mesmo instante, uma pessoa de 1,5 m projeta uma sombra de 2 m e um poste projeta uma sombra de 8 m. Qual a altura do poste?',['4 m','6 m','10,7 m','12 m'],1,'Os triângulos formados são semelhantes: 1,5/2 = h/8 → h = 1,5 × 8 / 2 = 6 m. O valor 10,7 vem de inverter a proporção.'],
+['9',3,0,'Qual é o continente mais populoso do mundo?',['África','Ásia','Europa','América'],1,'A Ásia concentra cerca de 60% da população mundial, com destaque para Índia e China.'],
+['9',3,1,'A União Europeia é um exemplo de:',['Aliança militar liderada pelos EUA','Bloco econômico e político regional','Organização mundial de saúde','Área de livre-comércio da América do Sul'],1,'A UE é um bloco regional de integração econômica e política entre países europeus. A aliança militar liderada pelos EUA é a OTAN.'],
+['9',3,2,'Qual aliança militar foi liderada pela União Soviética durante a Guerra Fria?',['OTAN','Pacto de Varsóvia','Mercosul','União Europeia'],1,'O Pacto de Varsóvia (1955) reuniu os países socialistas do Leste Europeu sob liderança soviética. A OTAN foi a aliança ocidental liderada pelos EUA.'],
+['9',3,3,'A queda do Muro de Berlim (1989) e a dissolução da URSS (1991) marcaram:',['O início da bipolaridade entre EUA e URSS','O fim da ordem bipolar da Guerra Fria','A criação da OTAN','O fim do capitalismo na Europa'],1,'Esses eventos encerraram a bipolaridade da Guerra Fria, com os EUA como principal potência no pós-1991. A OTAN foi criada em 1949 e o capitalismo não acabou: expandiu-se ao Leste Europeu.'],
+['9',4,0,'Qual a classe gramatical da palavra "rapidamente" em "Ela correu rapidamente"?',['Substantivo','Adjetivo','Advérbio','Preposição'],2,'"Rapidamente" modifica o verbo "correu", indicando modo: é advérbio. O adjetivo modificaria um substantivo.'],
+['9',4,1,'Em "Estudei muito, mas não passei", o conectivo "mas" estabelece relação de:',['Adição','Oposição (adversidade)','Conclusão','Explicação'],1,'"Mas" liga ideias contrárias e introduz oração coordenada sindética adversativa. Adição seria "e"; conclusão, "portanto".'],
+['9',4,2,'Qual das frases está na voz passiva?',['O aluno resolveu a questão.','A questão foi resolvida pelo aluno.','O aluno feriu-se no recreio.','A chuva molhou o jardim.'],1,'Na voz passiva o sujeito sofre a ação ("A questão foi resolvida"), com agente da passiva ("pelo aluno"). As demais estão na voz ativa ou reflexiva.'],
+['9',4,3,'Em "Quando o sinal tocou, os alunos saíram", a oração "Quando o sinal tocou" é:',['Coordenada sindética aditiva','Subordinada adverbial temporal','Subordinada substantiva objetiva direta','Subordinada adjetiva restritiva'],1,'Ela depende da principal ("os alunos saíram") e indica o momento da ação, introduzida por "quando": subordinada adverbial temporal.'],
+['9',0,1,'Entre as radiações abaixo, a de maior frequência é:',['Ondas de rádio','Micro-ondas','Luz visível','Raios gama'],3,'Os raios gama têm a maior frequência (e energia) do espectro eletromagnético; as ondas de rádio têm a menor.'],
+['9',0,2,'Um patinador empurra a parede e desliza para trás. Qual lei de Newton explica esse movimento?',['1ª Lei (Inércia)','2ª Lei (F = m·a)','3ª Lei (Ação e Reação)','Lei de Ohm'],2,'Ao empurrar a parede, ele recebe dela uma força de mesma intensidade e sentido oposto. Ação e reação atuam em corpos diferentes, por isso não se anulam.'],
+['9',2,0,'Qual é o valor de 2³?',['6','8','9','5'],1,'2³ = 2 × 2 × 2 = 8. O valor 6 vem de multiplicar a base pelo expoente (2 × 3).'],
+['9',2,1,'Qual é a notação científica de 45 000?',['4,5 × 10³','4,5 × 10⁴','45 × 10⁴','4,5 × 10⁵'],1,'Move-se a vírgula 4 casas para a esquerda: 4,5 × 10⁴, com coeficiente entre 1 e 10.'],
+['9',2,1,'Qual é a média aritmética de 4, 6, 8 e 10?',['6','7','8','28'],1,'Soma = 28; 28 ÷ 4 = 7. O valor 28 é só a soma, sem dividir pela quantidade de termos.'],
+['9',2,2,'Em um triângulo retângulo, o cateto oposto a um ângulo agudo mede 3 cm e a hipotenusa mede 5 cm. Qual o seno desse ângulo?',['3/4','3/5','4/5','5/3'],1,'sen = cateto oposto / hipotenusa = 3/5. O valor 4/5 seria o cosseno (o outro cateto mede 4 cm, por Pitágoras).'],
+['9',2,2,'A equação x² − 9 = 0 tem como soluções:',['x = 3 apenas','x = −3 apenas','x = 3 e x = −3','Nenhuma solução real'],2,'x² = 9, logo x = 3 ou x = −3, pois (−3)² também é 9. Esquecer a raiz negativa é erro comum.'],
+['9',2,3,'Uma escada de 10 m está apoiada em uma parede, com o pé a 6 m dela. Se o pé for afastado para 8 m da parede, em quantos metros diminui a altura alcançada?',['2 m','4 m','6 m','8 m'],0,'Antes: h = √(100 − 36) = 8 m. Depois: h = √(100 − 64) = 6 m. A diferença é 2 m.'],
+['9',3,0,'O processo de integração mundial de economias, culturas e informações é chamado de:',['Globalização','Colonização','Urbanização','Nacionalismo'],0,'É a globalização, impulsionada pelos transportes, pela internet e pelo comércio internacional.'],
+['9',3,1,'O Mercosul foi criado, originalmente, por Brasil, Argentina, Paraguai e:',['Chile','Uruguai','Peru','Colômbia'],1,'O Mercosul nasceu em 1991 (Tratado de Assunção) com Brasil, Argentina, Paraguai e Uruguai.'],
+['9',3,1,'Qual organização foi criada em 1945, após a Segunda Guerra Mundial, para promover a paz e a cooperação entre as nações?',['OTAN','ONU','OMC','Mercosul'],1,'A ONU foi criada em 1945. A OTAN é uma aliança militar (1949) e a OMC cuida do comércio mundial (1995).'],
+['9',3,2,'O Japão é uma potência industrial mesmo com poucos recursos naturais. Isso se explica principalmente por:',['Abundância de petróleo no território','Investimento em tecnologia e educação e importação de matérias-primas','Grande disponibilidade de terras agrícolas','Ausência de comércio exterior'],1,'O Japão importa matérias-primas e investiu em tecnologia e educação. Seu território montanhoso tem pouca terra agricultável.'],
+['9',3,2,'Qual é o maior deserto quente do mundo, localizado no continente africano?',['Gobi','Atacama','Saara','Kalahari'],2,'O Saara, no norte da África, é o maior deserto quente do planeta. O Gobi fica na Ásia e o Atacama, na América do Sul.'],
+['9',3,3,'A Conferência de Berlim (1884-1885) é um marco do neocolonialismo na África porque:',['Reconheceu a independência dos países africanos','Definiu regras para a partilha do continente entre potências europeias','Criou a União Africana','Proibiu a presença europeia na África'],1,'As potências europeias fixaram regras para dividir a África. As fronteiras ignoraram etnias e culturas, o que gerou conflitos posteriores.'],
+['9',4,0,'Qual é o plural de "cidadão"?',['Cidadões','Cidadãos','Cidadães','Cidadams'],1,'O plural é "cidadãos", como em "mão/mãos" e "irmão/irmãos".'],
+['9',4,1,'Em "Ele estuda e trabalha", o conectivo "e" liga orações coordenadas de valor:',['Adversativo','Aditivo','Conclusivo','Explicativo'],1,'"E" soma ideias: oração coordenada sindética aditiva. "Mas" seria adversativo.'],
+['9',4,1,'Qual figura de linguagem aparece em "O sol sorriu para nós nesta manhã"?',['Antítese','Hipérbole','Personificação (prosopopeia)','Pleonasmo'],2,'Atribui-se uma ação humana (sorrir) a um ser inanimado: personificação ou prosopopeia.'],
+['9',4,2,'Em "Penso, logo existo.", a palavra "logo" expressa ideia de:',['Tempo','Conclusão','Oposição','Causa'],1,'Aqui "logo" é conjunção conclusiva (= portanto). Como advérbio indicaria tempo, como em "volto logo".'],
+['9',4,2,'Qual alternativa apresenta uma oração subordinada substantiva?',['Chegou cedo porque tinha pressa.','Espero que todos aprendam.','O aluno que estuda aprende.','Quando chover, ficaremos em casa.'],1,'"Que todos aprendam" é objeto direto de "espero": substantiva. As outras são adverbial causal, adjetiva e adverbial temporal.'],
+['9',4,3,'Assinale a frase correta quanto ao uso de "mal" e "mau":',['Ele é um mal aluno.','Ele passou mal na prova.','O mau é o contrário de bem.','Ele agiu muito mau.'],1,'"Mal" é o oposto de "bem" (passou mal). "Mau" é o oposto de "bom" e acompanha substantivos (mau aluno, mau humor).'],
+
+['1',1,0,'Qual organela é a principal responsável pela respiração celular aeróbia, produzindo a maior parte do ATP?',['Ribossomo','Lisossomo','Mitocôndria','Complexo golgiense'],2,'A mitocôndria realiza a respiração aeróbia. Ribossomos sintetizam proteínas e lisossomos fazem a digestão intracelular.'],
+['1',1,1,'Qual estrutura está presente nas células vegetais e ausente nas células animais?',['Membrana plasmática','Ribossomos','Núcleo','Parede celular de celulose'],3,'Plantas têm parede celular de celulose externa à membrana. Membrana, ribossomos e núcleo existem em ambos os tipos de célula.'],
+['1',1,2,'Bactérias do gênero Rhizobium, associadas às raízes de leguminosas (como o feijão), atuam principalmente em qual ciclo biogeoquímico?',['Carbono','Nitrogênio','Fósforo','Água'],1,'Fazem a fixação biológica do N₂ atmosférico em amônia, utilizável pelas plantas: ciclo do nitrogênio.'],
+['1',1,3,'Em uma cadeia alimentar há 10 000 kJ de energia no produtor. Pela regra dos 10%, quanto chega, aproximadamente, ao consumidor terciário?',['1 000 kJ','100 kJ','10 kJ','1 kJ'],2,'10 000 → 1 000 (primário) → 100 (secundário) → 10 kJ (terciário). Erro comum: contar um nível a menos.'],
+['1',2,0,'Na função afim f(x) = 3x + 2, qual o valor de f(4)?',['10','12','14','18'],2,'f(4) = 3·4 + 2 = 14. O valor 18 vem de somar antes de multiplicar: 3·(4+2).'],
+['1',2,1,'Qual é o 10º termo da PA (3, 7, 11, ...)?',['36','39','40','43'],1,'r = 4; aₙ = a₁ + (n−1)·r = 3 + 9·4 = 39. O valor 43 seria o 11º termo.'],
+['1',2,2,'Em um triângulo retângulo, o cateto oposto a um ângulo de 30° mede 5 cm. Qual a medida da hipotenusa?',['2,5 cm','5√3 cm','10 cm','15 cm'],2,'sen 30° = ½ = cateto oposto / hipotenusa → hipotenusa = 5 ÷ ½ = 10 cm.'],
+['1',2,3,'Sobre f(x) = x² − 6x + 5, a soma das raízes e o valor mínimo da função são, respectivamente:',['6 e −4','6 e 4','−6 e −4','5 e −9'],0,'Raízes 1 e 5 (soma 6). O vértice está em x = 3 e f(3) = 9 − 18 + 5 = −4; como o coeficiente de x² é positivo, −4 é mínimo.'],
+['1',3,0,'Qual linha imaginária divide a Terra em hemisférios Norte e Sul?',['Meridiano de Greenwich','Linha do Equador','Trópico de Capricórnio','Trópico de Câncer'],1,'A Linha do Equador (latitude 0°) separa os hemisférios Norte e Sul. Greenwich (longitude 0°) divide Leste e Oeste.'],
+['1',3,1,'Em um mapa na escala 1:500.000, 4 cm representam quantos quilômetros reais?',['2 km','20 km','200 km','2 000 km'],1,'4 × 500 000 = 2 000 000 cm = 20 km (100 000 cm = 1 km). O engano mais comum é a conversão de cm para km.'],
+['1',3,2,'O domínio morfoclimático de clima semiárido, solos rasos e vegetação xerófila, típico do interior do Nordeste, é o das:',['Caatingas','Cerrados','Araucárias','Mares de morros'],0,'Trata-se das Caatingas (depressões intermontanas e interplanálticas semiáridas). O Cerrado tem clima tropical com estação seca, porém mais chuvoso.'],
+['1',3,3,'Um voo parte de Brasília (UTC−3) às 20h e dura 9 horas, com destino a Lisboa (UTC+0). Qual a hora local de chegada?',['5h do dia seguinte','8h do dia seguinte','11h do dia seguinte','14h do dia seguinte'],1,'20h em Brasília = 23h UTC. Somando 9h de voo: 8h UTC do dia seguinte = 8h em Lisboa. Esquecer a diferença de fusos dá 5h.'],
+['1',4,0,'Em "Meu coração é um oceano de saudade", a figura de linguagem é:',['Metáfora','Comparação','Hipérbole','Ironia'],0,'Há identificação direta entre dois termos, sem conectivo comparativo: metáfora. Na comparação haveria "como", "tal qual" etc.'],
+['1',4,1,'Em "Choveu muito ontem.", o sujeito é classificado como:',['Simples','Composto','Oculto','Inexistente (oração sem sujeito)'],3,'Verbos que indicam fenômenos da natureza são impessoais e formam oração sem sujeito. O sujeito oculto é determinado, apenas não está escrito.'],
+['1',4,2,'Um falante usa linguagem formal numa entrevista de emprego e descontraída com os amigos. Esse fenômeno é uma variação:',['Histórica','Regional','Social','Situacional (de registro)'],3,'Adequar a linguagem ao contexto é variação situacional (diafásica). A regional depende do lugar; a social, do grupo; a histórica, do tempo.'],
+['1',4,3,'Em "Li Machado de Assis durante as férias", ocorre a figura de linguagem:',['Metonímia','Metáfora','Eufemismo','Catacrese'],0,'O autor é usado no lugar da obra: metonímia. Não há comparação implícita (metáfora) nem suavização de ideia (eufemismo).'],
+['1',1,0,'Qual organela realiza a fotossíntese?',['Mitocôndria','Cloroplasto','Lisossomo','Vacúolo'],1,'A fotossíntese ocorre nos cloroplastos, que contêm clorofila.'],
+['1',1,1,'Na cadeia alimentar, os organismos que decompõem matéria orgânica morta, como fungos e bactérias, são os:',['Produtores','Consumidores primários','Decompositores','Consumidores terciários'],2,'Decompositores degradam restos orgânicos e devolvem nutrientes ao ambiente.'],
+['1',1,1,'Qual é a função principal da membrana plasmática?',['Produzir ATP','Controlar a entrada e a saída de substâncias','Armazenar o DNA','Sintetizar proteínas'],1,'Ela é seletivamente permeável e regula o que entra e sai da célula. O DNA fica no núcleo.'],
+['1',1,2,'A passagem de água por uma membrana semipermeável, do meio menos concentrado em soluto para o mais concentrado, chama-se:',['Difusão simples','Osmose','Transporte ativo','Fagocitose'],1,'É a osmose. No transporte ativo há gasto de ATP e movimento contra o gradiente.'],
+['1',1,2,'Qual bioma, de vegetação xerófila com cactos como o mandacaru, ocorre no semiárido piauiense?',['Caatinga','Pampa','Floresta Amazônica','Pantanal'],0,'A Caatinga tem clima semiárido e plantas adaptadas à seca. O Piauí também possui Cerrado e Mata dos Cocais.'],
+['1',1,3,'Um poluente não degradável se acumula em concentrações cada vez maiores nos níveis tróficos mais altos de uma cadeia. Esse fenômeno é a:',['Eutrofização','Biomagnificação (magnificação trófica)','Fotossíntese','Sucessão ecológica'],1,'A substância se concentra ao longo da cadeia. Eutrofização é o excesso de nutrientes que causa proliferação de algas.'],
+['1',2,0,'O gráfico da função afim f(x) = 2x + 1 é:',['Uma parábola','Uma reta','Uma hipérbole','Uma circunferência'],1,'Toda função afim, f(x) = ax + b, tem como gráfico uma reta.'],
+['1',2,1,'Qual a raiz da função f(x) = 2x − 6?',['−3','3','6','12'],1,'Faz-se f(x) = 0: 2x − 6 = 0 → x = 3.'],
+['1',2,1,'Qual é a razão da PG (2, 6, 18, 54, ...)?',['3','4','9','16'],0,'q = 6 ÷ 2 = 3; cada termo é o anterior multiplicado por 3. Na PA somaríamos, na PG multiplicamos.'],
+['1',2,2,'Qual a soma dos 10 primeiros termos da PA (1, 3, 5, 7, ...)?',['64','90','100','110'],2,'a₁₀ = 1 + 9·2 = 19; S = (1 + 19)·10/2 = 100.'],
+['1',2,2,'Um observador está a 20 m da base de um prédio e vê o topo sob um ângulo de 45°. Qual a altura do prédio?',['10 m','20 m','20√2 m','40 m'],1,'tg 45° = 1 = altura/20, logo a altura é 20 m.'],
+['1',2,3,'Uma bola é lançada e sua altura (em metros) é h(t) = −t² + 4t, com t em segundos. Qual a altura máxima?',['2 m','4 m','8 m','16 m'],1,'O vértice está em t = 2 s; h(2) = −4 + 8 = 4 m. O valor 2 é o instante, não a altura.'],
+['1',3,0,'Qual instrumento indica a direção do Norte magnético?',['Bússola','Termômetro','Altímetro','Pluviômetro'],0,'A bússola tem agulha magnetizada que aponta para o Norte magnético.'],
+['1',3,1,'As linhas imaginárias que medem a distância angular ao norte ou ao sul do Equador chamam-se:',['Meridianos','Paralelos','Fusos horários','Escalas'],1,'Os paralelos medem a latitude (0° a 90°). Os meridianos medem a longitude.'],
+['1',3,1,'Quando é meio-dia em Greenwich (0°), que horas são em um local a 30° a leste?',['10h','12h','14h','16h'],2,'Cada 15° equivale a 1 hora; 30° = 2 horas. A leste o horário é adiantado: 14h.'],
+['1',3,2,'Qual tipo de rocha se forma pelo acúmulo e compactação de sedimentos e pode conter fósseis?',['Ígnea','Sedimentar','Metamórfica','Magmática'],1,'As sedimentares podem conter fósseis. Ígneas (magmáticas) vêm do resfriamento do magma; metamórficas, da transformação por calor e pressão.'],
+['1',3,2,'Chuvas causadas pela subida do ar úmido ao encontrar uma serra são chamadas de:',['Convectivas','Orográficas (de relevo)','Frontais','Ácidas'],1,'No relevo o ar sobe, esfria e condensa. A convectiva vem do aquecimento do solo; a frontal, do encontro de massas de ar.'],
+['1',3,3,'O El Niño, com aquecimento anormal das águas do Pacífico equatorial, costuma provocar no semiárido nordestino:',['Chuvas acima da média','Redução das chuvas e secas mais intensas','Nevascas no litoral','Congelamento de rios'],1,'O fenômeno tende a reduzir as chuvas no norte do Nordeste, agravando a seca no semiárido.'],
+['1',4,0,'Qual gênero textual tem como finalidade informar fatos recentes de forma objetiva?',['Poema','Notícia','Receita','Bilhete'],1,'A notícia relata fatos atuais de maneira objetiva e impessoal.'],
+['1',4,1,'Em "Os alunos chegaram cedo", o predicado é:',['Os alunos','chegaram cedo','Os alunos chegaram','cedo'],1,'O sujeito é "os alunos"; o predicado é "chegaram cedo", o que se declara sobre o sujeito.'],
+['1',4,1,'Em "Estou morrendo de fome", há a figura de linguagem:',['Hipérbole','Eufemismo','Antítese','Onomatopeia'],0,'Exagero intencional para dar ênfase: hipérbole.'],
+['1',4,2,'Em "Ele é frio como o gelo", a figura de linguagem é:',['Metáfora','Comparação','Metonímia','Ironia'],1,'Há conectivo comparativo ("como"): comparação. Sem ele, seria a metáfora "Ele é um gelo".'],
+['1',4,2,'Em "Meninos e meninas brincavam na rua", o sujeito é:',['Simples','Composto','Oculto','Indeterminado'],1,'Há dois núcleos ("meninos" e "meninas"): sujeito composto.'],
+['1',4,3,'Em "Vendem-se casas", o termo "casas" é:',['Objeto direto','Sujeito','Predicativo','Complemento nominal'],1,'É voz passiva sintética (casas são vendidas): "casas" é o sujeito, por isso o verbo está no plural.'],
+
+['2',1,0,'Qual substância forma o exoesqueleto dos artrópodes (insetos, aranhas, crustáceos)?',['Celulose','Queratina','Quitina','Colágeno'],2,'O exoesqueleto dos artrópodes é de quitina. A celulose forma a parede vegetal; a queratina, pelos e unhas de mamíferos.'],
+['2',1,1,'Qual grupo vegetal produz sementes, mas não possui flores nem frutos?',['Briófitas','Pteridófitas','Gimnospermas','Angiospermas'],2,'Gimnospermas (como os pinheiros) têm sementes nuas. Briófitas e pteridófitas não produzem sementes; angiospermas têm flores e frutos.'],
+['2',1,2,'Qual das doenças abaixo NÃO é causada por vírus?',['Dengue','Sarampo','Gripe','Tuberculose'],3,'A tuberculose é causada pela bactéria Mycobacterium tuberculosis. Dengue, sarampo e gripe são viroses.'],
+['2',1,3,'Por que antibióticos não são eficazes contra vírus, como o da gripe?',['Porque são menores que as bactérias e escapam do efeito dos antibióticos','Porque são parasitas intracelulares sem metabolismo próprio e não têm os alvos bacterianos dos antibióticos','Porque possuem parede celular de quitina, resistente a qualquer antibiótico','Porque se reproduzem apenas fora das células, onde os antibióticos não chegam'],1,'Vírus dependem da célula hospedeira para se replicar e não têm parede celular nem ribossomos próprios, que são os alvos dos antibióticos.'],
+['2',2,0,'Ao lançar um dado comum de 6 faces, qual a probabilidade de obter um número par?',['1/6','1/3','1/2','2/3'],2,'Os resultados favoráveis são 2, 4 e 6: 3 em 6 = 1/2.'],
+['2',2,1,'Uma lanchonete oferece 3 tipos de suco e 4 tipos de sanduíche. De quantas maneiras é possível escolher um suco e um sanduíche?',['7','12','24','1'],1,'Princípio multiplicativo: 3 × 4 = 12. Somar (7) só vale quando se escolhe um item OU outro.'],
+['2',2,2,'Qual o determinante da matriz A, de primeira linha (2, 3) e segunda linha (1, 4)?',['5','8','11','3'],0,'det = 2·4 − 3·1 = 8 − 3 = 5 (diagonal principal menos diagonal secundária).'],
+['2',2,3,'De um grupo com 5 meninas e 3 meninos escolhem-se 2 pessoas ao acaso. Qual a probabilidade de ambas serem meninas?',['5/14','5/8','25/64','3/14'],0,'Favoráveis: C(5,2) = 10. Possíveis: C(8,2) = 28. P = 10/28 = 5/14. O valor 25/64 ignoraria que a primeira escolhida não volta ao grupo.'],
+['2',3,0,'Qual é a região mais populosa do Brasil?',['Sudeste','Nordeste','Sul','Norte'],0,'O Sudeste concentra a maior população do país (mais de 40%), seguido pelo Nordeste.'],
+['2',3,1,'O deslocamento de pessoas da zona rural para as cidades é chamado de:',['Êxodo rural','Migração pendular','Transumância','Imigração'],0,'É o êxodo rural, que impulsionou a urbanização brasileira. Migração pendular é o vai e vem diário entre cidades.'],
+['2',3,2,'A região MATOPIBA, nova fronteira do agronegócio brasileiro, abrange áreas de quais estados?',['MA, TO, PI e BA','MA, TO, PE e BA','MT, TO, PI e BA','MA, TO, PI e GO'],0,'O nome vem das iniciais de Maranhão, Tocantins, Piauí e Bahia, área de expansão de grãos no Cerrado.'],
+['2',3,3,'Uma pirâmide etária brasileira atual, com base mais estreita e topo mais largo que a de décadas atrás, indica principalmente:',['Aumento da natalidade e redução da expectativa de vida','Envelhecimento populacional, com queda da natalidade e maior expectativa de vida','Predomínio de jovens por alta natalidade e alta mortalidade','Crescimento populacional acelerado por forte imigração'],1,'Base estreita = menos nascimentos; topo largo = mais idosos. É o envelhecimento da população, característico da fase atual da transição demográfica.'],
+['2',4,0,'Em qual frase o uso da crase está correto?',['Fui à pé até a escola.','Cheguei à ontem.','Fui à escola pela manhã.','Entreguei o livro à ele.'],2,'"Ir" exige "a" e "escola" admite artigo "a": a + a = à. Não há crase antes de palavra masculina (pé, ele) nem de advérbio (ontem).'],
+['2',4,1,'Segundo a norma-padrão, qual frase apresenta concordância verbal correta?',['Houveram muitos acidentes na rodovia.','Haviam pessoas na fila.','Fazem dois anos que não o vejo.','Faz dois anos que não o vejo.'],3,'Haver (no sentido de existir) e fazer (tempo decorrido) são impessoais: ficam na 3ª pessoa do singular.'],
+['2',4,2,'Segundo a norma-padrão, qual frase traz a regência correta de "assistir" no sentido de "ver"?',['Assistimos o filme ontem.','Assistimos ao filme ontem.','Assistimos no filme ontem.','Assistimos pelo filme ontem.'],1,'Nesse sentido, "assistir" é transitivo indireto e exige a preposição "a": assistir ao filme.'],
+['2',4,3,'Assinale a alternativa correta quanto à concordância nominal:',['Seguem anexo as cópias solicitadas.','Seguem anexas as cópias solicitadas.','Maria estava meia cansada.','Eles mesmo fizeram o trabalho.'],1,'"Anexo" é adjetivo e concorda com "cópias". "Meio" (advérbio, = um pouco) é invariável, e "mesmo" concorda com "eles" (mesmos).'],
+['2',1,0,'Qual é a função das raízes de uma planta?',['Realizar a fotossíntese','Fixar a planta e absorver água e sais minerais','Produzir sementes','Realizar a polinização'],1,'As raízes fixam e absorvem água e sais minerais. A fotossíntese ocorre principalmente nas folhas.'],
+['2',1,1,'Qual grupo de vertebrados respira por brânquias durante toda a vida?',['Peixes','Anfíbios','Répteis','Mamíferos'],0,'Os peixes têm brânquias a vida toda. Anfíbios só as têm na fase larval; répteis e mamíferos respiram por pulmões.'],
+['2',1,1,'Qual estrutura das folhas controla as trocas gasosas e a perda de água?',['Estômatos','Xilema','Raiz','Cutícula'],0,'Estômatos são poros que se abrem e fecham regulando a entrada de CO₂ e a transpiração.'],
+['2',1,2,'Qual doença é causada por protozoário e transmitida pela picada do mosquito Anopheles?',['Dengue','Malária','Cólera','Hepatite A'],1,'A malária é causada pelo Plasmodium. A dengue é viral (Aedes) e a cólera, bacteriana.'],
+['2',1,2,'O sistema circulatório dos mamíferos é:',['Aberto, com coração de 2 câmaras','Fechado, com coração de 4 câmaras','Aberto, com coração de 3 câmaras','Fechado, sem coração'],1,'Mamíferos têm circulação fechada, dupla e completa, com coração de 4 câmaras e sem mistura de sangue.'],
+['2',1,3,'Por que as vacinas protegem contra doenças virais?',['Contêm antibióticos que matam o vírus','Estimulam a produção de anticorpos e de células de memória','Substituem as células de defesa do corpo','Impedem a entrada do vírus no ar'],1,'A vacina apresenta antígenos que geram memória imunológica sem causar a doença. Antibióticos não agem contra vírus.'],
+['2',2,0,'Qual é o valor de 5!?',['25','60','120','720'],2,'5! = 5·4·3·2·1 = 120. O valor 25 vem de calcular 5².'],
+['2',2,1,'Quantos anagramas tem a palavra AMOR?',['12','16','24','48'],2,'São 4 letras distintas: 4! = 24.'],
+['2',2,1,'Em uma urna há 3 bolas vermelhas e 2 azuis. Qual a probabilidade de sortear uma bola azul?',['2/5','3/5','1/2','2/3'],0,'Favoráveis: 2; possíveis: 5; P = 2/5. O valor 2/3 compararia azuis com vermelhas, não com o total.'],
+['2',2,2,'Qual o determinante da matriz A, de linhas (1, 2) e (3, 4)?',['−2','2','10','−10'],0,'det = 1·4 − 2·3 = 4 − 6 = −2.'],
+['2',2,2,'De quantas maneiras se podem escolher 2 representantes entre 5 alunos?',['5','10','20','25'],1,'A ordem não importa (combinação): C(5,2) = 10. O valor 20 seria arranjo, em que a ordem conta.'],
+['2',2,3,'Lançam-se dois dados comuns. Qual a probabilidade de a soma dos resultados ser 7?',['1/12','1/6','1/9','7/36'],1,'Há 6 resultados com soma 7 (1+6, 2+5, 3+4, 4+3, 5+2, 6+1) em 36 possíveis: 6/36 = 1/6.'],
+['2',3,0,'Qual região brasileira é a maior em extensão territorial?',['Norte','Nordeste','Sudeste','Sul'],0,'A Região Norte ocupa cerca de 45% do território nacional.'],
+['2',3,1,'Qual região do Brasil possui a maior densidade demográfica?',['Norte','Centro-Oeste','Sudeste','Sul'],2,'O Sudeste concentra muita gente em área relativamente pequena. Norte e Centro-Oeste têm as menores densidades.'],
+['2',3,1,'O processo de aumento da proporção da população que vive nas cidades é chamado de:',['Urbanização','Ruralização','Colonização','Desmatamento'],0,'É a urbanização, acelerada no Brasil a partir da industrialização do século XX.'],
+['2',3,2,'Qual é o principal produto agrícola de exportação do Brasil?',['Soja','Trigo','Arroz','Batata'],0,'A soja lidera as exportações agrícolas brasileiras. O Brasil, aliás, importa parte do trigo que consome.'],
+['2',3,2,'A conurbação ocorre quando:',['Duas cidades vizinhas crescem até se unirem','A população rural aumenta','Uma cidade perde habitantes','Uma área rural é irrigada'],0,'Conurbação é a junção física de cidades por crescimento urbano, formando regiões metropolitanas.'],
+['2',3,3,'A mecanização do campo e a concentração de terras no Brasil contribuíram para:',['Reduzir o êxodo rural','Aumentar os empregos no campo','Intensificar o êxodo rural e o inchaço das cidades','Eliminar os conflitos agrários'],2,'Máquinas reduzem empregos e a concentração fundiária expulsa trabalhadores, que migram para as cidades. Os conflitos agrários persistem.'],
+['2',4,0,'Qual frase apresenta concordância verbal correta?',['Os alunos chegou cedo.','Os alunos chegaram cedo.','O aluno chegaram cedo.','As alunas chegou cedo.'],1,'O verbo concorda com o sujeito em número e pessoa: "alunos" (plural) pede "chegaram".'],
+['2',4,1,'Em qual frase há crase obrigatória?',['Fui a pé.','Vou à Bahia.','Falei a ele.','Cheguei a uma hora.'],1,'"Ir" pede "a" e "Bahia" admite artigo: a + a = à. Antes de palavra masculina, pronome pessoal e artigo indefinido não há crase.'],
+['2',4,1,'Qual frase está correta quanto à concordância nominal?',['É proibido a entrada de menores.','É proibida a entrada de menores.','São proibida entrada de menores.','Proibido é a entrada de menores.'],1,'Com artigo definido ("a entrada"), o adjetivo concorda com o substantivo: proibida.'],
+['2',4,2,'Qual alternativa apresenta a regência correta do verbo "preferir"?',['Prefiro cinema do que teatro.','Prefiro cinema a teatro.','Prefiro mais cinema que teatro.','Prefiro cinema de teatro.'],1,'"Preferir" exige a preposição "a": prefere-se uma coisa A outra. Não se usa "do que" nem "mais".'],
+['2',4,2,'Em "Choveu; portanto, cancelamos o passeio", o conectivo "portanto" expressa:',['Oposição','Explicação','Conclusão','Adição'],2,'"Portanto" introduz a consequência da ideia anterior: conclusão.'],
+['2',4,3,'Assinale a alternativa com concordância verbal correta:',['Fazem dois meses que viajei.','Devem haver soluções para o problema.','Deve haver soluções para o problema.','Haviam soluções para o problema.'],2,'"Haver" (existir) é impessoal, e o verbo auxiliar também fica no singular: "deve haver". Fazer indicando tempo também é impessoal.'],
+
+['3',1,0,'Qual molécula armazena a informação genética na maioria dos seres vivos?',['ATP','DNA','Glicose','Lipídio'],1,'O DNA guarda a informação hereditária. O ATP é a moeda energética da célula.'],
+['3',1,1,'Segundo Charles Darwin, qual é o principal mecanismo da evolução das espécies?',['Uso e desuso de órgãos','Geração espontânea','Herança de caracteres adquiridos','Seleção natural'],3,'Indivíduos mais adaptados sobrevivem e deixam mais descendentes. Uso e desuso e herança de caracteres adquiridos são ideias de Lamarck.'],
+['3',1,2,'Na engenharia genética, qual enzima corta o DNA em sequências específicas?',['DNA ligase','DNA polimerase','Enzima de restrição','RNA polimerase'],2,'As enzimas de restrição reconhecem sequências específicas e cortam o DNA. A ligase une fragmentos; as polimerases sintetizam ácidos nucleicos.'],
+['3',1,3,'O daltonismo é determinado por alelo recessivo ligado ao cromossomo X. Uma mulher portadora (X<sup>D</sup>X<sup>d</sup>) e um homem de visão normal (X<sup>D</sup>Y) têm um filho. Qual a probabilidade de a criança ser menino e daltônico?',['0%','25%','50%','100%'],1,'X<sup>D</sup>X<sup>d</sup> × X<sup>D</sup>Y → X<sup>D</sup>X<sup>D</sup>, X<sup>D</sup>X<sup>d</sup>, X<sup>D</sup>Y, X<sup>d</sup>Y. Só 1 dos 4 (X<sup>d</sup>Y) é menino daltônico: 25%. Entre os meninos, a chance seria 50%.'],
+['3',2,0,'Qual é o volume de um cubo de aresta 3 cm?',['9 cm³','18 cm³','27 cm³','54 cm³'],2,'V = a³ = 3³ = 27 cm³. O valor 54 seria a área total (6a²), outra grandeza.'],
+['3',2,1,'Qual a distância entre os pontos A(1, 2) e B(4, 6) no plano cartesiano?',['3','4','5','7'],2,'d = √[(4−1)² + (6−2)²] = √(9 + 16) = √25 = 5.'],
+['3',2,2,'Um capital de R$ 1.000,00 é aplicado a juros compostos de 10% ao mês por 2 meses. Qual o montante?',['R$ 1.100,00','R$ 1.200,00','R$ 1.210,00','R$ 1.220,00'],2,'M = 1000 · 1,1² = 1.210. Os R$ 1.200 seriam resultado de juros simples.'],
+['3',2,3,'A média de 5 números é 8. Ao retirar um deles, a média dos 4 restantes passa a ser 7. Qual número foi retirado?',['10','11','12','15'],2,'Soma inicial = 5·8 = 40; soma final = 4·7 = 28; número retirado = 40 − 28 = 12.'],
+['3',3,0,'Qual das fontes de energia abaixo é renovável?',['Carvão mineral','Petróleo','Gás natural','Energia solar'],3,'A solar vem de fonte inesgotável na escala humana. Carvão, petróleo e gás natural são combustíveis fósseis, não renováveis.'],
+['3',3,1,'Quantos membros permanentes, com direito a veto, tem o Conselho de Segurança da ONU?',['3','5','10','15'],1,'São 5: Estados Unidos, Rússia, China, Reino Unido e França. Os 15 membros incluem 10 não permanentes, sem veto.'],
+['3',3,2,'A matriz elétrica brasileira se destaca no cenário mundial pela predominância de fontes:',['Fósseis, como carvão e petróleo','Nucleares','Renováveis, com destaque para a hidrelétrica','Exclusivamente solares'],2,'A maior parte da eletricidade brasileira vem de fontes renováveis, principalmente hidrelétricas, além de eólica, biomassa e solar. Nuclear e fósseis têm participação menor.'],
+['3',3,3,'O conflito entre Rússia e Ucrânia, iniciado em 2022, afetou a segurança energética europeia principalmente porque:',['A Ucrânia era a maior produtora mundial de petróleo','A Europa dependia de gás natural fornecido pela Rússia','A Rússia controlava toda a energia nuclear europeia','O conflito interrompeu o comércio de energia solar'],1,'Parte importante da Europa dependia do gás russo; sanções e cortes de fornecimento aceleraram a busca por outros fornecedores e fontes. A Ucrânia não é grande produtora de petróleo.'],
+['3',4,0,'Quantas competências são avaliadas na redação do Enem?',['3','4','5','6'],2,'São 5 competências, cada uma valendo até 200 pontos (total de 1000).'],
+['3',4,1,'Para que a proposta de intervenção da redação do Enem seja completa, ela deve apresentar:',['Apenas o agente e a ação','Agente, ação, meio ou modo, finalidade e detalhamento','Somente a finalidade e uma citação','Tese, argumento e exemplo'],1,'A competência 5 avalia os cinco elementos da proposta: agente, ação, meio/modo, finalidade e detalhamento.'],
+['3',4,2,'Assinale a alternativa correta quanto à regência:',['O livro que preciso está aqui.','O livro de que preciso está aqui.','O livro o qual preciso está aqui.','O livro de cujo preciso está aqui.'],1,'"Precisar" exige a preposição "de": o pronome relativo vem regido por ela (de que). As demais omitem a preposição ou usam "cujo" indevidamente.'],
+['3',4,3,'Em "Que belo exemplo de cidadania, jogar lixo na rua!", o recurso estilístico predominante e seu efeito são:',['Hipérbole, para exagerar a quantidade de lixo','Ironia, para criticar dizendo o oposto do que se pensa','Eufemismo, para suavizar a crítica','Antítese, para opor duas ideias no mesmo verso'],1,'Elogia-se na aparência algo condenável: a ironia constrói a crítica pelo sentido contrário ao literal. Não há exagero nem suavização.'],
+['3',1,0,'Qual é a unidade básica da hereditariedade, formada por um trecho de DNA?',['Gene','Ribossomo','Enzima','Hormônio'],0,'O gene é o segmento de DNA que contém a informação para uma característica.'],
+['3',1,1,'Quantos cromossomos tem uma célula somática humana normal?',['23','44','46','48'],2,'São 46 (23 pares). Os gametas têm 23.'],
+['3',1,1,'O processo de formação de gametas, com redução do número de cromossomos à metade, é a:',['Mitose','Meiose','Fagocitose','Clonagem'],1,'A meiose gera células haploides, e a fecundação restabelece o número diploide.'],
+['3',1,2,'Organismos transgênicos são aqueles que:',['Sofreram mutação natural','Receberam um gene de outra espécie por engenharia genética','Foram criados por cruzamento entre raças','Não possuem DNA'],1,'Transgênico recebe, por engenharia genética, um gene de outra espécie.'],
+['3',1,2,'O aumento da temperatura média do planeta, intensificado por gases como CO₂ e CH₄, é chamado de:',['Inversão térmica','Aquecimento global (efeito estufa intensificado)','Chuva ácida','Eutrofização'],1,'O acúmulo de gases-estufa retém mais calor na atmosfera. Inversão térmica e chuva ácida são outros fenômenos.'],
+['3',1,3,'Uma população de bactérias fica resistente a um antibiótico após uso excessivo do medicamento. Isso ilustra:',['Lamarckismo: a bactéria aprende a resistir','Seleção natural: as resistentes sobrevivem e se reproduzem mais','Geração espontânea de bactérias resistentes','Extinção das bactérias'],1,'Já existia variação na população; o antibiótico eliminou as sensíveis e as resistentes passaram o gene adiante (seleção natural).'],
+['3',2,0,'Qual o volume de um paralelepípedo de dimensões 2 cm, 3 cm e 4 cm?',['9 cm³','24 cm³','26 cm³','48 cm³'],1,'V = 2·3·4 = 24 cm³. Somar as arestas (9) não dá volume.'],
+['3',2,1,'Qual a equação da reta que passa pelos pontos (0, 1) e (2, 5)?',['y = 2x + 1','y = x + 1','y = 4x + 1','y = 2x + 5'],0,'Coeficiente angular = (5 − 1)/(2 − 0) = 2; o coeficiente linear é 1.'],
+['3',2,1,'Qual a mediana do conjunto 1, 2, 4, 7, 11?',['4','5','7','11'],0,'Com os valores em ordem, o central é 4. O valor 5 é a média, outra medida.'],
+['3',2,2,'Um capital de R$ 2.000,00 rende juros simples de 5% ao mês durante 4 meses. Qual o valor dos juros?',['R$ 100,00','R$ 400,00','R$ 440,00','R$ 2.400,00'],1,'J = C·i·t = 2000 · 0,05 · 4 = 400. O montante seria R$ 2.400,00.'],
+['3',2,2,'A equação da circunferência de centro na origem e raio 3 é:',['x² + y² = 3','x² + y² = 6','x² + y² = 9','x + y = 9'],2,'x² + y² = r², e r² = 9. Esquecer de elevar o raio ao quadrado é o erro comum.'],
+['3',2,3,'Um cilindro tem raio da base 3 cm e altura 10 cm. Qual o seu volume?',['30π cm³','60π cm³','90π cm³','180π cm³'],2,'V = π·r²·h = π·9·10 = 90π cm³.'],
+['3',3,0,'Qual organização reúne países produtores de petróleo para coordenar a produção?',['OPEP','OMS','UNESCO','OMC'],0,'A OPEP (Organização dos Países Exportadores de Petróleo) coordena políticas de produção e preço.'],
+['3',3,1,'O Brics é um agrupamento de países emergentes. Qual destes foi um dos fundadores?',['México','Índia','Argentina','Egito'],1,'O grupo nasceu com Brasil, Rússia, Índia e China. México e Argentina nunca foram fundadores.'],
+['3',3,1,'A OTAN é:',['Uma aliança militar entre países ocidentais','Um bloco de livre-comércio','Uma organização de saúde','Uma agência espacial'],0,'Organização do Tratado do Atlântico Norte: aliança militar criada em 1949.'],
+['3',3,2,'Qual fonte de energia renovável aproveita a força do movimento das massas de ar?',['Eólica','Nuclear','Carvão mineral','Gás natural'],0,'A energia eólica usa os ventos, e o Nordeste brasileiro concentra grande parte da geração.'],
+['3',3,2,'A globalização é marcada por:',['Fechamento das economias nacionais','Integração de mercados e rápida circulação de capitais e informações','Fim do comércio internacional','Ausência de empresas multinacionais'],1,'Redes de comunicação e transportes aceleraram a circulação de capitais, mercadorias e informações, com efeitos desiguais entre os países.'],
+['3',3,3,'O Estreito de Ormuz é estratégico para a geopolítica mundial porque:',['Liga o Mar Negro ao Mediterrâneo','Por ele passa grande parte do petróleo exportado do Golfo Pérsico','Separa a Europa da Ásia','Liga o Atlântico ao Pacífico'],1,'Ele é a saída do Golfo Pérsico, rota de grande parte do petróleo exportado. A ligação Mar Negro–Mediterrâneo é feita pelo Bósforo e Dardanelos.'],
+['3',4,0,'Em uma redação dissertativo-argumentativa, a parte que apresenta o tema e a tese é a:',['Introdução','Conclusão','Citação final','Referência'],0,'A introdução apresenta o tema e a tese (ponto de vista) do texto.'],
+['3',4,1,'Em "O autor cujo livro li é famoso", o pronome "cujo" indica:',['Posse','Lugar','Tempo','Modo'],0,'"Cujo" é pronome relativo de posse (o livro DO autor) e concorda com o termo seguinte.'],
+['3',4,1,'Qual conectivo é mais adequado para introduzir uma conclusão no parágrafo final?',['Entretanto','Portanto','Além disso','Contudo'],1,'"Portanto" conclui. "Entretanto" e "contudo" contrapõem ideias; "além disso" acrescenta.'],
+['3',4,2,'Em "Fui ao cinema; ele, ao teatro", o recurso usado para evitar repetir o verbo é:',['Elipse','Pleonasmo','Hipérbato','Silepse'],0,'Elipse é a omissão de um termo facilmente subentendido (aqui, "foi").'],
+['3',4,2,'Em qual alternativa há pleonasmo vicioso, a ser evitado na escrita formal?',['Subir para cima','Viver a vida','Ver com os próprios olhos','Chorar lágrimas amargas'],0,'"Subir para cima" repete a ideia sem acrescentar sentido. As outras têm efeito expressivo (pleonasmo literário).'],
+['3',4,3,'Em "Preferia ir à praia a ficar em casa", a regência do verbo "preferir" está:',['Correta','Errada: deveria ser "do que"','Errada: deveria ser "mais"','Errada: falta "de"'],0,'"Preferir X a Y" é a regência da norma-padrão. Não se usa "do que" nem "mais".'],
+];
+
+/* ===== Persistência (localStorage com fallback em memória) ===== */
+const Store={k:'quizSeducPI.v1',d:null,
+ load(){let x=null;try{x=JSON.parse(localStorage.getItem(this.k))}catch(e){}this.d=Object.assign({rank:{},hist:[],log:[],nome:''},x||{})},
+ save(){try{localStorage.setItem(this.k,JSON.stringify(this.d))}catch(e){}},
+ add(r){const a=this.d.rank[r.t]=this.d.rank[r.t]||[];a.push(r);a.sort((x,y)=>y.s-x.s);this.d.rank[r.t]=a.slice(0,10);this.d.hist=[r].concat(this.d.hist).slice(0,50);this.save()}};
+
+/* ===== Jogo ===== */
+const $=s=>document.querySelector(s),esc=s=>String(s).replace(/[&<>"']/g,c=>'&#'+c.charCodeAt(0)+';');
+const show=id=>{['cover','home','game','end','rank'].forEach(x=>$('#'+x).hidden=x!=id);$('#hd').hidden=$('#hd2').hidden=id=='cover';scrollTo(0,0)};
+let G={};
+
+function fillDisc(){const d=TUR[$('#turma').value].d;$('#disc').innerHTML=(d.length>1?'<option value="*">Todas as disciplinas</option>':'')+d.map(i=>`<option value="${i}">${DN[i]}</option>`).join('')}
+function fillHome(){
+ $('#turma').innerHTML=Object.keys(TUR).map(k=>`<option value="${k}">${TUR[k].n}</option>`).join('');
+ $('#nv').innerHTML='<option value="*">Todos os níveis (progressão)</option>'+NIV.map((n,i)=>`<option value="${i}">${n.n} (${n.t}s por pergunta)</option>`).join('');
+ $('#nome').value=Store.d.nome||'';fillDisc();
+}
+function start(){
+ const t=$('#turma').value,d=$('#disc').value,nv=$('#nv').value,nome=$('#nome').value.trim()||'Estudante';
+ Store.d.nome=nome;Store.save();
+ const qs=B.filter(q=>q[0]==t&&(d=='*'||q[1]==d)&&(nv=='*'||q[2]==nv)).sort((a,b)=>a[2]-b[2]||Math.random()-.5);
+ G={nome,t,d,nv,qs,i:0,v:3,s:0,c:0,ok:0,best:0};
+ show('game');next();
+}
+function hud(){
+ $('#gh').textContent='❤️'.repeat(Math.max(G.v,0))+'🖤'.repeat(3-Math.max(G.v,0));
+ $('#gs').textContent='Pontos: '+G.s+(G.c>0?' · Combo x'+Math.min(G.c,5):'');
+}
+function tick(){
+ G.left=Math.max(0,(G.end-Date.now())/1000);
+ $('#tb').style.width=(G.left/G.tot*100)+'%';$('#tm').textContent='⏱ '+Math.ceil(G.left)+'s';
+ if(G.left<=0)resolve(-1);
+}
+function next(){
+ clearInterval(G.tm);
+ if(G.i>=G.qs.length||G.v<1)return end();
+ const q=G.qs[G.i],nv=NIV[q[2]];
+ G.q=q;G.lock=false;G.tot=nv.t;G.end=Date.now()+nv.t*1000;
+ G.o=q[4].map((x,j)=>({x,r:j==q[5]})).sort(()=>Math.random()-.5);
+ $('#gl').textContent='Pergunta '+(G.i+1)+'/'+G.qs.length;
+ $('#gn').textContent=nv.n;$('#gt').textContent=DN[q[1]];
+ $('#gq').innerHTML=q[3];
+ $('#ops').innerHTML=G.o.map((p,j)=>`<button class="o" data-j="${j}"><b>${j+1}.</b> ${p.x}</button>`).join('');
+ $('#fb').hidden=true;$('#nx').hidden=true;
+ hud();tick();G.tm=setInterval(()=>tick(),100);
+}
+function resolve(j){
+ if(G.lock)return;G.lock=true;clearInterval(G.tm);
+ const q=G.q,ok=j>=0&&G.o[j].r,sec=Math.ceil(G.left);let pts=0;
+ if(ok){G.c++;G.best=Math.max(G.best,G.c);G.ok++;pts=NIV[q[2]].p*Math.min(G.c,5)+sec;G.s+=pts}else{G.c=0;G.v--}
+ Store.d.log=Store.d.log.concat([{q:B.indexOf(q),ok:+ok,t:Date.now()}]).slice(-300);Store.save();
+ document.querySelectorAll('.o').forEach((b,k)=>{b.disabled=true;if(G.o[k].r)b.classList.add('ok');else if(k==j)b.classList.add('no')});
+ const f=$('#fb');
+ f.innerHTML='<b>'+(j<0?'⏰ Tempo esgotado! −1 vida.':ok?'✅ Correto! +'+pts+' pontos':'❌ Resposta incorreta. −1 vida.')+'</b><br>'+q[6];
+ f.hidden=false;G.i++;hud();
+ const n=$('#nx');n.hidden=false;n.textContent=(G.i>=G.qs.length||G.v<1)?'Ver resultado ➜':'Próxima ➜';n.focus();
+}
+function end(){
+ const win=G.v>0,acc=Math.round(G.ok/Math.max(G.i,1)*100);
+ Store.add({n:G.nome,t:G.t,s:G.s,d:G.d=='*'?'Todas':DN[G.d],nv:G.nv=='*'?'Progressão':NIV[G.nv].n,a:acc,dt:new Date().toLocaleDateString('pt-BR')});
+ $('#et').textContent=win?'🏆 Parabéns, '+G.nome+'!':'💥 Game Over';
+ $('#es').innerHTML='Pontuação: <b>'+G.s+'</b><br>Acertos: '+G.ok+'/'+G.i+' ('+acc+'%)<br>Maior combo: '+G.best;
+ $('#ep').textContent=win?'Você concluiu a revisão. Experimente outro nível ou disciplina!':'As vidas acabaram. Releia as explicações e tente de novo.';
+ show('end');
+}
+function rank(t){
+ t=t||$('#turma').value;
+ $('#rt').innerHTML=Object.keys(TUR).map(k=>`<option value="${k}"${k==t?' selected':''}>${TUR[k].n}</option>`).join('');
+ const a=Store.d.rank[t]||[];
+ $('#rl').innerHTML=a.length?a.map(r=>`<li><b>${esc(r.n)}</b> — ${r.s} pts <small class="mut">(${esc(r.d)} · ${esc(r.nv)} · ${r.a}% · ${esc(r.dt)})</small></li>`).join(''):'<li>Ainda não há resultados. Seja o primeiro!</li>';
+ show('rank');
+}
+
+/* ===== Eventos ===== */
+Store.load();fillHome();show('cover');$('#nq').textContent=B.length;
+$('#turma').onchange=fillDisc;$('#go').onclick=start;$('#rk').onclick=()=>rank();
+$('#ops').onclick=e=>{const b=e.target.closest('.o');if(b)resolve(+b.dataset.j)};
+$('#nx').onclick=next;$('#again').onclick=start;$('#cv').onclick=()=>show('home');$('#cr').onclick=()=>rank();
+$('#er').onclick=()=>rank(G.t);$('#eh').onclick=$('#rb').onclick=()=>show('home');
+$('#rt').onchange=e=>rank(e.target.value);
+document.addEventListener('keydown',e=>{if(!$('#game').hidden&&!G.lock){const k=+e.key;if(k>=1&&k<=4&&G.o[k-1])resolve(k-1)}});
+</script>
+</body>
+</html>
